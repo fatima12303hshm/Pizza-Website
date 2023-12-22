@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8f8; /* Teal background color */
+            color: #008080; /* Teal text color */
+        }
+
+        h2 {
+            color: #006666; /* Darker teal for headings */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #d2f4f4; /* Light teal form background color */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #006666; /* Darker teal for labels */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #006666; /* Darker teal border */
+            border-radius: 4px;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #006666; /* Darker teal line */
+            margin: 20px 0;
+        }
+
+        h3 {
+            color: #006666; /* Darker teal for subheadings */
+        }
+
+        input[type="submit"] {
+            background-color: #006666; /* Darker teal button color */
+            color: #fff; /* White text color */
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #004d4d; /* Slightly darker teal on hover */
+            }
+
+            /* Confirmation dialog styling */
+            input[type="submit"][value="Delete Account"] {
+                background-color: #ff6666; /* Red color for delete button */
+            }
+
+                input[type="submit"][value="Delete Account"]:hover {
+                    background-color: #cc0000; /* Darker red on hover */
+                }
+    </style>
+</head>
+<body>
+
+    <h2>Update Profile</h2>
+
+    <form action="/update" method="post" onsubmit="return validateForm()">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone">
+
+        <hr>
+
+        <h3>Change Password</h3>
+
+        <label for="oldPassword">Old Password:</label>
+        <input type="password" id="oldPassword" name="oldPassword">
+
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword">
+
+        <label for="confirmNewPassword">Confirm New Password:</label>
+        <input type="password" id="confirmNewPassword" name="confirmNewPassword">
+        <div>
+            <input type="submit" value="Update Profile">
+        </div>
+
+    </form>
+
+    <form action="/delete" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+        <input type="submit" value="Delete Account">
+    </form>
+
+    <script src="validateForm.js"></script>
+</body>
+
+</html>

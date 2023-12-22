@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Responsive Pizza Shop Website Design</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        header {
+            color: teal;
+            text-align: center;
+            padding: 1em;
+            font-size: 2em;
+        }
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .box {
+            flex: 1 1 calc(33.33% - 20px);
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+        }
+
+            .box img {
+                max-width: 100%;
+                max-height: 400px;
+                height: auto;
+            }
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+        .price {
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+        .qty {
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+        .btn {
+            margin-top: 10px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>View Pizzas</h1>
+    </header>
+
+    <section id="menu" class="menu">
+
+        <div class="box-container" id="menu-container"></div>
+
+        <script>
+            fetch('/menu')
+                .then(response => response.json())
+                .then(data => {
+                    const menuContainer = document.getElementById('menu-container');
+                    data.forEach(pizza => {
+                        const price = pizza.price;
+                        const box = document.createElement('div');
+                        box.className = 'box';
+                        const p_id = pizza.id;
+                        box.innerHTML = `
+                                                    <form action="/deleteMenu/${p_id}" method="post" onsubmit="return confirm('Are you sure you want to Remove the pizza?');">
+                                                        <div class="price" name="price">$<span>${price}</span></div>
+                                                        <img src="${pizza.path}" alt="${pizza.filename}">
+                                                        <div class="name">${pizza.name}</div>
+                                                        <div class="name">${pizza.qty}</div>
+                                                        <input type="submit" value="Remove Pizza from Menu" class="btn">
+                                                    </form>
+                                                `;
+                        menuContainer.appendChild(box);
+                    });
+                })
+                .catch(error => console.error('Error fetching menu data:', error));
+        </script>
+    </section>
+</body>
+</html>

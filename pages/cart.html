@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; 
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px;
+            width: 45%; 
+            background-color: white;
+            display: flex;
+            flex-direction: row;
+        }
+
+            .product img {
+                width: 40%; 
+                height: auto;
+                object-fit: cover;
+            }
+
+        .product-info {
+            padding: 15px;
+            width: 60%;
+        }
+
+        .product-title {
+            font-size: 1.75em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-qty {
+            font-size: 1.5em;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff4001;
+            margin-top: 10px;
+        }
+
+        #order-btn {
+            background-color: teal;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .order-product-btn {
+            background-color: teal;
+            color: white;
+            padding: 8px 16px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <section class="flex">
+            <a href="#home" class="logo">Pizza.</a>
+            <nav class="navbar">
+                <a href="../index.html">home</a>
+                <a href="about.html">about</a>
+                <a href="menu.html">menu</a>
+                <a href="order.html">Contact us</a>
+            </nav>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="cart-btn" class="fas fa-shopping-cart"><span>(4)</span></div>
+            </div>
+        </section>
+    </header>
+
+    <section id="cart-section">
+    </section>
+
+    <script>
+
+
+        function placeOrder(cartId) {
+            console.log("Buy button clicked!");
+
+            fetch('/buy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ cartId }),
+            })
+                .then(response => response.json())
+
+                .catch(error => console.error('Error:', error));
+        }
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/cart');
+                const cartData = await response.json();
+
+                const cartSection = document.getElementById('cart-section');
+                cartData.forEach(item => {
+                    const productDiv = document.createElement('div');
+                    productDiv.className = 'product';
+
+                    const productInfoDiv = document.createElement('div');
+                    productInfoDiv.className = 'product-info';
+
+                    const productTitleDiv = document.createElement('div');
+                    productTitleDiv.className = 'product-title';
+                    productTitleDiv.textContent = item.name;
+
+                    const productQtyDiv = document.createElement('div');
+                    productQtyDiv.className = 'product-qty';
+                    productQtyDiv.textContent = `Qty: ${item.qty}`;
+
+                    const productPriceDiv = document.createElement('div');
+                    productPriceDiv.className = 'product-price';
+                    productPriceDiv.textContent = `$${item.total_price.toFixed(2)}`;
+
+                    const orderButton = document.createElement('button');
+                    orderButton.className = 'order-product-btn';
+                    orderButton.textContent = 'Order';
+                    orderButton.addEventListener('click', function (event) {
+                        alert("Clicked");
+                        event.preventDefault();
+
+                        const cartId = item.ElementId;
+
+                        placeOrder(cartId);
+                    });
+
+                    
+
+                    productInfoDiv.appendChild(productTitleDiv);
+                    productInfoDiv.appendChild(productQtyDiv);
+                    productInfoDiv.appendChild(productPriceDiv);
+                    productInfoDiv.appendChild(orderButton);
+
+                    const productImage = document.createElement('img');
+                    productImage.src = item.path;
+                    productImage.alt = item.name;
+
+                    productDiv.appendChild(productInfoDiv);
+                    productDiv.appendChild(productImage);
+
+                    cartSection.appendChild(productDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching cart data:', error);
+            }
+        });
+
+
+    </script>
+
+</body>
+</html>

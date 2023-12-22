@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Pizza Shop</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+   <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <section class="flex">
+
+            <a href="#home" class="logo">Pizza.</a>
+
+            <nav class="navbar">
+                <a href="#home">Home</a>
+                <a href="pages/about.html">About</a>
+                <a href="pages/menu.html">Menu</a>
+                <a href="pages/order.html">Contact us</a>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div class="dropdown" onclick="toggleDropdown()">
+                    <div id="user-btn" class="fas fa-user"></div>
+                    <div class="dropdown-content">
+                        <a href="pages/login.html">Login</a>
+                        <a href="pages/updatendelete.html">Update Profile</a>
+                    </div>
+                </div>
+                <a href=" pages/cart.html">
+                <div id="cart-btn" class="fas fa-shopping-cart"></div>
+                </a>
+            </div>
+        </section>
+    </header>
+
+    <div class="shopping-cart">
+
+        <section>
+
+            <div id="close-cart">
+                <a href="#" class="fas fa-times"></a>
+            </div>
+
+            <div class="box">
+                <a href="#" class="fas fa-times"></a>
+                <img src="images/pizza-1.jpg" alt="">
+                <div class="content">
+                    <p>pizza-1 <span>( $3/- x 2 )</span></p>
+                    <form action="" method="post">
+                        <input type="number" class="qty" name="qty" min="1" value="2" max="100">
+                        <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="box">
+                <a href="#" class="fas fa-times"></a>
+                <img src="images/pizza-3.jpg" alt="">
+                <div class="content">
+                    <p>pizza-3 <span>( $2/- x 1 )</span></p>
+                    <form action="" method="post">
+                        <input type="number" class="qty" name="qty" min="1" value="1" max="100">
+                        <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="box">
+                <a href="#" class="fas fa-times"></a>
+                <img src="images/pizza-6.jpg" alt="">
+                <div class="content">
+                    <p>pizza-6 <span>( $4/- x 2 )</span></p>
+                    <form action="" method="post">
+                        <input type="number" class="qty" name="qty" min="1" value="2" max="100">
+                        <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="box">
+                <a href="#" class="fas fa-times"></a>
+                <img src="images/pizza-7.jpg" alt="">
+                <div class="content">
+                    <p>pizza-7 <span>( $2/- x 1 )</span></p>
+                    <form action="" method="post">
+                        <input type="number" class="qty" name="qty" min="1" value="1" max="100">
+                        <button type="submit" class="fas fa-edit" name="update_qty"></button>
+                    </form>
+                </div>
+            </div>
+
+            <a href="#order" class="btn">order now</a>
+
+        </section>
+
+    </div>  
+    <div class="home-bg">
+
+
+        <section class="home" id="home">
+
+            <div class="slide-container">
+
+                <div class="slide active">
+                    <div class="image">
+                        <img src="images/home-img-1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Homemade Pepperoni Pizza</h3>
+                        <div class="fas fa-angle-left" onclick="prev()"></div>
+                        <div class="fas fa-angle-right" onclick="next()"></div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="image">
+                        <img src="images/home-img-2.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Pizza With Mushrooms</h3>
+                        <div class="fas fa-angle-left" onclick="prev()"></div>
+                        <div class="fas fa-angle-right" onclick="next()"></div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="image">
+                        <img src="images/home-img-3.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Mascarpone And Mushrooms</h3>
+                        <div class="fas fa-angle-left" onclick="prev()"></div>
+                        <div class="fas fa-angle-right" onclick="next()"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <i class="fas fa-phone"></i>
+                <h3>phone number</h3>
+                <p>+961 71559927</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>our address</h3>
+                <p>Beirut, Lebanon</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-clock"></i>
+                <h3>opening hours</h3>
+                <p>00:09am to 00:10pm</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-envelope"></i>
+                <h3>email address</h3>
+                <p>fatimahashem12303@gmail.com</p>
+                <p>reemHusseiny@gmail.com</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

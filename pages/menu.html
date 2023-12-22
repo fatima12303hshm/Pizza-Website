@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Responsive Pizza Shop Website Design</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .box {
+            flex: 1 1 calc(33.33% - 20px);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+            .box img {
+                max-width: 100%;
+                max-height: 400px;
+                height: auto;
+            }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .price {
+            margin-top: 10px;
+        }
+
+        .qty {
+            margin-top: 10px;
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <section class="flex">
+            <a href="#home" class="logo">Pizza.</a>
+            <nav class="navbar">
+                <a href="../index.html">home</a>
+                <a href="about.html">about</a>
+                <a href="menu.html">menu</a>
+                <a href="order.html">Contact us</a>
+            </nav>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="cart-btn" class="fas fa-shopping-cart"><span>(4)</span></div>
+            </div>
+        </section>
+    </header>
+
+    <section id="menu" class="menu">
+        <h1 class="heading">our menu</h1>
+        <div class="box-container" id="menu-container"></div>
+
+        <script>
+            fetch('/menu')
+                .then(response => response.json())
+                .then(data => {
+                    const menuContainer = document.getElementById('menu-container');
+                    data.forEach(pizza => {
+                        const price = pizza.price;
+                        const box = document.createElement('div');
+                        box.className = 'box';
+                        const p_id = pizza.id;
+                        box.innerHTML = `
+       <form action="/place_order/${p_id}" method="post">
+      <div class="price" name="price">$<span>${price}</span></div>
+      <img src="${pizza.path}" alt="${pizza.filename}">
+      <div class="name">${pizza.name}</div>
+        <input type="number" min="1" max="${pizza.qty}" value="1" class="qty" name="qty">
+         <input type="submit" value="add to cart" class="btn">
+      </form>
+   `;
+
+                        menuContainer.appendChild(box);
+                    });
+                })
+                .catch(error => console.error('Error fetching menu data:', error));
+
+            document.addEventListener('submit', function (event) {
+                if (event.target.tagName.toLowerCase() === 'form') {
+                    const formData = new FormData(event.target);
+                    formData.delete('add_to_cart');
+                }
+            });
+        </script>
+    </section>
+</body>
+</html>

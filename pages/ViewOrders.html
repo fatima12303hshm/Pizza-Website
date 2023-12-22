@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Messages</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            color: teal;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: stretch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message {
+            background-color: #008080; /* Teal color */
+            border: 1px solid #006666; /* Darker teal color */
+            border-radius: 8px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+            .message:hover {
+                transform: translateY(-5px);
+            }
+
+        h2, p {
+            color: #fff; /* White text */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>View Orders</h1>
+    </header>
+
+    <div class="container" id="messageContainer"></div>
+
+    <script>
+        fetch('/getAllOrders')
+            .then(response => response.json())
+            .then(data => {
+                const msgContainer = document.getElementById('messageContainer');
+
+                const table = document.createElement('table');
+
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                const headers = ['Name', 'Pizza', 'Quantity', 'Price'];
+
+                headers.forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+
+                data.forEach(cart => {
+                    const P_name = cart.pizza_name;
+                    const U_name = cart.user_name;
+                    const qty = cart.qty;
+                    const price = cart.total_price;
+
+                    const row = document.createElement('tr');
+                    const UnameCell = document.createElement('td');
+                    const PnameCell = document.createElement('td');
+                    const qtyCell = document.createElement('td');
+                    const PriceCell = document.createElement('td');
+
+                    UnameCell.textContent = U_name;
+                    PnameCell.textContent = P_name;
+                    qtyCell.textContent = qty;
+                    PriceCell.textContent = price;
+
+
+                    row.appendChild(UnameCell);
+                    row.appendChild(PnameCell);
+                    row.appendChild(qtyCell);
+                    row.appendChild(PriceCell);
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+                msgContainer.appendChild(table);
+            })
+            .catch(error => console.error('Error fetching message data:', error));
+    </script>
+</body>
+</html>
